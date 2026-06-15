@@ -57,12 +57,12 @@ export class AdminProdutosComponent implements OnInit {
   }
 
   carregarProdutos(): void {
-    this.http.get<Produto[]>('https://backend.render.com/api/produtos').subscribe(data => this.produtos.set(data));
+    this.http.get<Produto[]>('http://localhost:8080/api/v1/produtos').subscribe(data => this.produtos.set(data));
   }
 
   deletar(id: number): void {
     if (confirm("Deseja realmente excluir este produto da TecLoja?")) {
-      this.http.delete(`https://backend.render.com/api/produtos/${id}`).subscribe(() => {
+      this.http.delete(`http://localhost:8080/api/v1/produtos/${id}`).subscribe(() => {
         this.produtos.update(current => current.filter(p => p.id !== id));
       });
     }

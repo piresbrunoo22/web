@@ -37,7 +37,7 @@ import { AuthService } from '../../services/auth.service';
 
       <!-- Grid de Produtos Responsivo em Glassmorphism -->
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
-        <div class="glass-panel" *ngFor="let p of produtos()">
+        <div class="glass-panel product-card" *ngFor="let p of produtos()">
           <div style="height: 150px; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
             <span style="font-size: 3rem;">💻</span>
           </div>
@@ -73,7 +73,7 @@ export class CatalogoComponent implements OnInit {
   }
 
   carregarProdutos(): void {
-    this.http.get<Produto[]>('https://backend.render.com/api/produtos').subscribe({
+    this.http.get<Produto[]>('http://localhost:8080/api/v1/produtos').subscribe({
       next: data => this.produtos.set(data),
       error: err => console.error("Erro ao obter catálogo", err)
     });
@@ -84,7 +84,7 @@ export class CatalogoComponent implements OnInit {
       this.carregarProdutos();
       return;
     }
-    this.http.get<Produto[]>(`https://backend.render.com/api/produtos/pesquisa?nome=${this.busca}`).subscribe({
+    this.http.get<Produto[]>(`http://localhost:8080/api/v1/produtos/pesquisa?nome=${this.busca}`).subscribe({
       next: data => this.produtos.set(data)
     });
   }

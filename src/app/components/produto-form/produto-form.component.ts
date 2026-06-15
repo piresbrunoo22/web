@@ -84,7 +84,7 @@ export class ProdutoFormComponent implements OnInit {
   }
 
   carregarProdutoEdicao(id: number): void {
-    this.http.get<Produto>(`https://backend.render.com/api/produtos/${id}`).subscribe(p => {
+    this.http.get<Produto>(`http://localhost:8080/api/v1/produtos/${id}`).subscribe(p => {
       this.form.patchValue(p);
     });
   }
@@ -100,12 +100,12 @@ export class ProdutoFormComponent implements OnInit {
     const payload = this.form.value;
 
     if (this.id) {
-      this.http.put(`https://backend.render.com/api/produtos/${this.id}`, payload).subscribe({
+      this.http.put(`http://localhost:8080/api/v1/produtos/${this.id}`, payload).subscribe({
         next: () => this.router.navigate(['/admin/produtos']),
         error: err => alert("Erro ao editar produto: " + err.error.message)
       });
     } else {
-      this.http.post('https://backend.render.com/api/produtos', payload).subscribe({
+      this.http.post('http://localhost:8080/api/v1/produtos', payload).subscribe({
         next: () => this.router.navigate(['/admin/produtos']),
         error: err => alert("Erro ao cadastrar produto: " + err.error.message)
       });
